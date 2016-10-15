@@ -102,3 +102,38 @@ public class Solution {
         return result;
     }
 }
+
+//Version 3: Depth Limited DFS
+public class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if(root == null){
+            return result;
+        }
+        
+        int maxLevel = 0;
+        while(true){
+            int curtLevel = 0;
+            ArrayList<Integer> level = new ArrayList<>();
+            dfs(root, level,curtLevel,maxLevel);
+            if(level.size() == 0){
+                break;
+            }
+            result.add(level);
+            maxLevel ++;
+        }
+        return result;
+    }
+    
+    private void dfs(TreeNode node, ArrayList<Integer> level, int curtLevel, int maxLevel){
+        if(node == null){
+            return;
+        }
+        if(curtLevel == maxLevel){
+            level.add(node.val);
+            return;
+        }
+        dfs(node.left,level,curtLevel + 1,maxLevel);
+        dfs(node.right,level,curtLevel + 1,maxLevel);
+    }
+}
