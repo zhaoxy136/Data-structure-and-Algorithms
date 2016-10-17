@@ -27,3 +27,8 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  -Binary Tree Level Order Traversal  
  -Binary Tree Level Order Traversal II  
  -Binary Tree Zigzag Level Order Traversal
+
+
+## Dynamic Programming
+ -Triangle  
+ -
