@@ -31,4 +31,6 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
 
 ## Dynamic Programming
  -Triangle  
+ -Minimum Path Sum  
+ -Unique Paths  
  -
