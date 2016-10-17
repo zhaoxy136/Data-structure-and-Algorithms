@@ -6,8 +6,7 @@ public class Solution {
         //state: numOfPath[i][j] = number of paths from (0,0) to (i,j)
         int[][] numOfPaths = new int[m][n];
         //initialize
-        numOfPaths[0][0] = 1;
-        for(int i = 1; i < m; i++){
+        for(int i = 0; i < m; i++){
                 numOfPaths[i][0] = 1;
         }
         for(int j = 0; j < n; j++){
