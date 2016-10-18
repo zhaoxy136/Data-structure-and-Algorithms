@@ -36,7 +36,6 @@ public class Solution {
                 farthest = nums[i] + i;
             }
         }
-        System.out.println(farthest);
         return farthest >= nums.length - 1;
 
     }
