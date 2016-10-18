@@ -33,4 +33,8 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  -Triangle  
  -Minimum Path Sum  
  -Unique Paths  
+ -Unique Paths II  
+ -Climbing Stairs  
+ -Jump Game  
+ -Jump Game II  
  -
