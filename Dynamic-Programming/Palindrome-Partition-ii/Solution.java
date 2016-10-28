@@ -1,3 +1,4 @@
+//Version 0: 
 public class Solution {
     public int minCut(String s) {
         int n = s.length();
@@ -57,5 +58,29 @@ public class Solution {
         return true;
     }
 */    
-    
+}
+
+//Version 1:(copyright @ tqlong)
+public class Solution {
+    public int minCut(String s) {
+        int n = s.length();
+        int[] f = new int[n+1];
+        //initialize
+        for(int i = 0; i <= n; i++){
+            f[i] = i - 1;
+        }
+        //DP
+        for(int i = 0; i < n; i++){
+            for(int j = 0; i-j>=0 && i+j<n && s.charAt(i-j) == s.charAt(i+j); j++){// odd length palindrome
+                f[i+j+1] = Math.min(f[i+j+1], f[i-j] + 1);
+            }
+            
+            for(int j = 1; i-j+1>=0 && i+j<n && s.charAt(i-j+1) == s.charAt(i+j); j++){//even length palindrome
+                f[i+j+1] = Math.min(f[i+j+1], f[i-j+1] + 1);
+            }
+            
+        }
+        //answer
+        return f[n];
+    }
 }
