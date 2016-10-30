@@ -59,4 +59,24 @@ public class Solution {
     }
 }
 
-
+//Version 2: Same as backpack-ii, just regarding the V[] = A[], which means the weight represents the value
+public class Solution {
+    /**
+     * @param m: An integer m denotes the size of a backpack
+     * @param A: Given n items with size A[i]
+     * @return: The maximum size
+     */
+    public int backPack(int m, int[] A) {
+         int[] f = new int[m+1];
+        for(int i = 0; i <= m; i++){
+            f[i] = 0;
+        }
+        
+        for(int j = 0; j < A.length; j++){
+            for(int i = m; i >= A[j]; i--){
+                f[i] = Math.max(f[i], f[i-A[j]] + A[j]);
+            }
+        }
+        return f[m];
+    }
+}
