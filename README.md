@@ -44,4 +44,6 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  -Backpack i  
  -Backpack ii  
  -Partition Equal Subset Sum  
+ -Arithmetic Slices  
+ -Wiggle Game  
  -
