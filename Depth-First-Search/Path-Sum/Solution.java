@@ -13,8 +13,8 @@ public class Solution {
         if(root == null){
             return false;
         }
-        if(root.left == null && root.right == null && root.val == sum){
-            return true;
+        if(root.left == null && root.right == null){
+            return sum == root.val;
         }
         
     //Divide     
