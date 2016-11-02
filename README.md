@@ -3,6 +3,7 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
 
 ## Array  
  -Counting Bits  
+ -Third Maximum Number  
  -
 
 ## Divide-And-Conquer
