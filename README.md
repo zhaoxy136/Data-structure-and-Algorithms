@@ -9,7 +9,8 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
 ## Bit Manipulation  
  -Power Of Four  
  - 
- 
+
+
 ## Divide-And-Conquer
  -Maximum Depth Of Binary Tree  
  -Minimum Depth Of Binary Tree  
