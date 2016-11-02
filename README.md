@@ -1,6 +1,10 @@
 # LeetCode
 Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from LintCode and Google OJ.
 
+## Array  
+ -Counting Bits  
+ -
+
 ## Divide-And-Conquer
  -Maximum Depth Of Binary Tree  
  -Minimum Depth Of Binary Tree  
@@ -48,4 +52,6 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  -Partition Equal Subset Sum  
  -Arithmetic Slices  
  -Wiggle Subsequence  
+ -Is Subsequence  
+ -Integer Break  
  -
