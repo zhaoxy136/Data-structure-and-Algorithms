@@ -8,9 +8,10 @@ public class Solution {
     
     private void helper(List<List<Integer>>res, List<Integer> subset, int[] nums, int start, int end){
         res.add(new ArrayList<>(subset));
-        if(start > end){
-            return;
-        }
+        //redundant
+        //if(start > end){
+        //    return;
+        //}
         for(int i = start; i < nums.length; i++){
             subset.add(nums[i]);
             helper(res, subset, nums, i+1, end);
