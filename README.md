@@ -42,7 +42,13 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
 
 ## Backtracking
  -Combination Sum  
- -
+ -Combination Sum II  
+ -Subsets  
+ -Permutations  
+ -Permutations II  
+ -Permutation Sequence  
+ -Binary Watch  
+ 
 
 
 ## Dynamic Programming
