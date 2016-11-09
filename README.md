@@ -51,7 +51,8 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  -Permutations II  
  -Permutation Sequence  
  -Binary Watch  
- -
+ -N Queens  
+ 
  
 
 
