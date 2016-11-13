@@ -6,7 +6,7 @@
  *     ListNode(int x) { val = x; }
  * }
  */
-//Version 0: original
+//Version 0: original O(n2)
 public class Solution {
     public ListNode insertionSortList(ListNode head) {
         if (head == null || head.next == null){
