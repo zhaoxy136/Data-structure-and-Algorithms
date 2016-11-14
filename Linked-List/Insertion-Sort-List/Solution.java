@@ -55,4 +55,64 @@ public class Solution {
     }
 }
 
-//Version 1: 
+//Version 1: modified
+public class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if (head == null || head.next == null){
+            return head;
+        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = head;
+        ListNode cur = head.next;
+        while (cur != null){
+            ListNode tra = dummy;
+            while (tra.next.val <= cur.val){
+                tra = tra.next;
+                if (tra.next.val > cur.val || tra == prev){
+                    break;
+                }
+            }
+            if (tra == prev){
+                prev = cur;
+                cur = cur.next;
+            } else {
+                ListNode tmp = tra.next;
+                tra.next = cur;
+                prev.next = cur.next;
+                cur.next = tmp;
+                cur = prev.next;
+                }
+            }
+        return dummy.next;
+    }
+}
+// Version 2: more efficient 
+public class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if (head == null || head.next == null){
+            return head;
+        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = head;
+        ListNode cur = head.next;
+        while (cur != null){
+            if (prev.val > cur.val){
+                ListNode tmp = dummy;
+                while (tmp.next.val <= cur.val){
+                    tmp = tmp.next;
+                }
+                //ListNode next = cur.next;
+                prev.next = cur.next;
+                cur.next = tmp.next;
+                tmp.next = cur;
+                cur = prev.next;
+            } else {
+                prev = cur;
+                cur = cur.next;
+            }
+        }
+        return dummy.next;
+    }
+}
