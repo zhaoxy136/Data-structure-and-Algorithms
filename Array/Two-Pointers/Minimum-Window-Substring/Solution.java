@@ -42,6 +42,7 @@ public class Solution {
 }
 
 //Version 1: use array instead of hashmap
+// @copyright https://discuss.leetcode.com/topic/30941/here-is-a-10-line-template-that-can-solve-most-substring-problems
 public class Solution {
     public String minWindow(String s, String t) {
         int[] chars = new int[128];
