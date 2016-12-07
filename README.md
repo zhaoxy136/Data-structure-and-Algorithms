@@ -38,7 +38,10 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
 ## Breadth-First-Search
  -Binary Tree Level Order Traversal  
  -Binary Tree Level Order Traversal II  
- -Binary Tree Zigzag Level Order Traversal
+ -Binary Tree Zigzag Level Order Traversal  
+ -Course Schedule  
+ -Course Schedule II  
+ -
 
 
 ## Backtracking
