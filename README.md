@@ -6,6 +6,10 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  -Third Maximum Number  
  -
 
+## Tree  
+ -Construct Binary Tree from Preorder and Inorder Traversal  
+ -
+
 ## Bit Manipulation  
  -Power Of Four  
  -
