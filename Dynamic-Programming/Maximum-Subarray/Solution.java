@@ -16,6 +16,25 @@ public class Solution {
     }
 }
 
+//Version 2: have to know how to use DP
+public class Solution {
+    public int maxSubArray(ArrayList<Integer> nums) {
+        if(nums.size()==0)  
+            return 0;  
+        int n = nums.size();
+        int []global = new int[n]; //global[i]: maximal sum within first i elements
+        int []local = new int[n]; //local[i]: maximal sum ended with the ith element
+        global[0] = nums.get(0);
+        local[0] = nums.get(0);
+        for(int i=1;i<n;i++)  
+        {  
+            local[i] = Math.max(nums.get(i),local[i-1]+nums.get(i));  
+            global[i] = Math.max(local[i],global[i-1]);  
+        }  
+        return global[n-1];  
+    }
+}
+
 //Version 1: Greedy
 public class Solution {
     public int maxSubArray(int[] A) {
