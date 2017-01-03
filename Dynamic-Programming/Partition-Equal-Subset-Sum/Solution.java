@@ -14,7 +14,7 @@ public class Solution {
     }
     
     private boolean findSum(int target, int[] nums){
-        //state: f[i][j]: whether the first i elements can form exactly number target
+        //state: f[i][j]: whether the first i elements can form exactly number target j
         boolean[][] f = new boolean[nums.length + 1][target + 1];
         //initialize
         for(int i = 0; i <= nums.length; i++){
