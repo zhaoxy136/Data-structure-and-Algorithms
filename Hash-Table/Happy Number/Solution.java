@@ -25,11 +25,9 @@ public class Solution {
         int fast = helper(n);
         while (slow != fast) {
             slow = helper(slow);
-            fast = helper(fast);
-            fast = helper(fast);
+            fast = helper(helper(fast));
         }
-        if (slow == 1) return true;
-        return false;
+        return slow == 1;
     }
     private int helper(int n) {
         int res = 0;
