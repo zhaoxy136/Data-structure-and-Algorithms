@@ -30,4 +30,26 @@ public class Solution {
     }
 }
 
-
+//Version 1:
+//after we sort the array, as long as some element becomes greater than the target, any elements 
+//after it wouldn't be a choice, we can return directly.
+public class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(candidates);
+        helper(res, new ArrayList<>(), candidates, target, 0);
+        return res;
+    }
+    private void helper(List<List<Integer>> res, List<Integer> combination, int[] nums, int target, int index) {
+        if (target == 0) {
+            res.add(new ArrayList<>(combination));
+            return;
+        }
+        for (int i = index; i < nums.length; i++) {
+            if (nums[i] > target) return;
+            combination.add(nums[i]);
+            helper(res, combination, nums, target-nums[i], i);
+            combination.remove(combination.size()-1);
+        }
+    }
+}
