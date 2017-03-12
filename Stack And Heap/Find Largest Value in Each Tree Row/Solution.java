@@ -53,3 +53,28 @@ public class Solution {
         return res;
     }
 }
+
+//Version 2: DFS using depth(d) to identify the row then compare.
+//@copyright https://discuss.leetcode.com/topic/79178/9ms-java-dfs-solution
+public class Solution {
+    public List<Integer> largestValues(TreeNode root) {
+        List<Integer> res = new ArrayList<Integer>();
+        helper(root, res, 0);
+        return res;
+    }
+    private void helper(TreeNode root, List<Integer> res, int d){
+        if(root == null){
+            return;
+        }
+       //expand list size
+        if(d == res.size()){
+            res.add(root.val);
+        }
+        else{
+        //or set value
+            res.set(d, Math.max(res.get(d), root.val));
+        }
+        helper(root.left, res, d+1);
+        helper(root.right, res, d+1);
+    }
+}
