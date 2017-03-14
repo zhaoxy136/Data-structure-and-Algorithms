@@ -2,9 +2,10 @@
 Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from LintCode and Google OJ.
 
 ## Array  
- -Counting Bits  
- -Third Maximum Number  
+ -Counting Bits 
+ -Third Maximum Number 
  -
+
 
 ## Stack and Heap
  -Decode String  
@@ -41,7 +42,7 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  -Binary Tree Inorder Traversal  
  -Binary Tree Postorder Traversal  
  -Inorder Successor In Binary Search Tree  
- -Binary Search Tree Iterator   
+ -Binary Search Tree Iterator  
  -Sum Root to Leaf Numbers  
  -
 
@@ -76,7 +77,6 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  -N Queens  
  
  
-
 
 ## Dynamic Programming
  -Triangle  
