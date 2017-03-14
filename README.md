@@ -62,7 +62,7 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  
 
 
-## Backtracking
+## Backtracking 
  -Combinations  
  -Combination Sum  
  -Combination Sum II  
@@ -76,8 +76,8 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  -N Queens  
 
 
-## Dynamic Programming
- -Triangle  
+## Dynamic Programming  
+ -Triangle  
  -Minimum Path Sum  
  -Unique Paths  
  -Unique Paths II  
