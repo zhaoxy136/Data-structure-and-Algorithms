@@ -7,8 +7,10 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  -
 
 ## Stack and Heap
- -Decode String
- -
+ -Decode String  
+ -Find Largest Value In Each Tree Row  
+ -Min Stack  
+ 
  
  
 ## Tree  
