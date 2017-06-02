@@ -25,3 +25,23 @@ public class Solution {
     }
 }
 
+//S1:better version
+public class Solution {
+    public String reverseStr(String s, int k) {
+        char[] word = s.toCharArray();
+        int i = 0;
+        while (i < word.length) {
+            int j = Math.min(word.length, i+k);
+            reverse(word, i, j-1);
+            i += 2*k;
+        }
+        return String.valueOf(word);
+    }
+    private void reverse(char[] word, int start, int end) {
+        while (start < end) {
+            char ch = word[start];
+            word[start++] = word[end];
+            word[end--] = ch;
+        }
+    }
+}
