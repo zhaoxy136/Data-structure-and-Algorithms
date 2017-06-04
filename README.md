@@ -1,10 +1,12 @@
 # LeetCode
 Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from LintCode and Google OJ.
 
-## Array  
+## String
+ -Add Binary  
+
+## Array
  -Counting Bits  
- -Third Maximum Number 
- -
+ -Third Maximum Number  
 
 
 ## Stack and Heap
@@ -15,11 +17,11 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
 
 ## Tree  
  -Construct Binary Tree from Preorder and Inorder Traversal  
- -
+ 
 
 ## Bit Manipulation  
  -Power Of Four  
- -
+ 
 
 ## Divide-And-Conquer
  -Maximum Depth Of Binary Tree  
@@ -29,7 +31,7 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  -Lowest Common Ancestor Of A Binary Tree   
  -Binary Tree Maximum Path Sum   
  -Elimination Game  
- -
+ 
 
 
 ## Depth-First-Search
@@ -43,7 +45,7 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  -Inorder Successor In Binary Search Tree  
  -Binary Search Tree Iterator  
  -Sum Root to Leaf Numbers  
- -
+ 
 
 
 ## Breadth-First-Search
@@ -98,4 +100,4 @@ Some interesting OJ Practices based on Java. Mainly from LeetCode, partly from L
  -Integer Break  
  -Maximum Subarray  
  -K Sum  
- -
+ 
