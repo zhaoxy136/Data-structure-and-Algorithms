@@ -37,6 +37,23 @@ public class Solution {
         return sb.toString();
     }
 }
+//Version 0'
+public class Solution {
+    public String reverseVowels(String s) {
+        List<Character> vowels = new ArrayList<>(Arrays.asList('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'));
+        char[] chars = s.toCharArray();
+        int i = 0, j = s.length()-1;
+        while (i < j) {
+            while (i < j && !vowels.contains(chars[i])) i++;
+            while (i < j && !vowels.contains(chars[j])) j--;
+            char ch = chars[i];
+            chars[i++] = chars[j];
+            chars[j--] = ch;
+        }
+        return String.valueOf(chars);
+    }
+}
+
 //Version 1: (5 ms)
 public class Solution {
     public String reverseVowels(String s) {
