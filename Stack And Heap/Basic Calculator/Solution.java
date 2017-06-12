@@ -34,3 +34,34 @@ public class Solution {
     }
 }
 
+//Version 1:one stack
+public class Solution {
+    public int calculate(String s) {
+        int sign = 1, res = 0;
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
+                int num = s.charAt(i) - '0';
+                while (i+1 < s.length() && Character.isDigit(s.charAt(i+1))) { //i+1 check next char
+                    num = num * 10 + s.charAt(i+1) - '0';
+                    i++;
+                }
+                res += sign * num;
+            } else if(s.charAt(i) == '+') {
+                sign = 1;
+            } else if (s.charAt(i) == '-') {
+                sign = -1;
+            } else if (s.charAt(i) == '(') {
+                stack.push(res);
+                stack.push(sign);
+                res = 0;
+                sign = 1;
+            } else if (s.charAt(i) == ')') {
+                res = res * stack.pop() + stack.pop();
+            }
+        }
+        return res;
+    }
+}
+
+
