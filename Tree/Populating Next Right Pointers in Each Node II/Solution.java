@@ -41,3 +41,28 @@ public class Solution {
         }
     }
 }
+
+//Version 1: using dummy node. SMART!!
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        TreeLinkNode cur = root;
+        TreeLinkNode head = new TreeLinkNode(0);
+        TreeLinkNode prev = head;
+        while (cur != null) {
+            if (cur.left != null) {
+                prev.next = cur.left;
+                prev = prev.next;
+            }
+            if (cur.right != null) {
+                prev.next = cur.right;
+                prev = prev.next;
+            }
+            cur = cur.next;
+            if (cur == null) {
+                cur = head.next;
+                head.next = null;
+                prev = head;
+            }
+        }
+    }
+}
