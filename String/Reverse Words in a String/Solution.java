@@ -21,4 +21,24 @@ public class Solution {
     }
 }
 
-//Version 1:
+//Version 1: original
+public class Solution {
+    public String reverseWords(String s) {
+        StringBuilder sb = new StringBuilder();
+        int start = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != ' ') {
+                if (sb.length() > 0) {
+                    sb.insert(0, " ");
+                }
+                start = i;
+                while (i < s.length() && s.charAt(i) != ' ') {
+                    i++;
+                }
+                sb.insert(0, s.substring(start, i));
+            }
+            
+        }
+        return sb.toString();
+    }
+}
