@@ -1,3 +1,4 @@
+//Version 0:
 public class Solution {
     public List<String> letterCombinations(String digits) {
         List<String> res = new ArrayList<>();
@@ -43,5 +44,41 @@ public class Solution {
             }
         }
         return stringList;
+    }
+}
+
+//Version 1:
+public class Solution {
+    public List<String> letterCombinations(String digits) {
+        List<String> res = new ArrayList<>();
+        if (digits == null || digits.length() == 0) return res;
+        for (char ch : digits.toCharArray()) {
+            if (ch - '0' < 2 || ch - '0' > 9) {
+                return res;
+            }
+        }
+        Map<Character, String> map = new HashMap<>();
+        map.put('2', "abc");
+        map.put('3', "def");
+        map.put('4', "ghi");
+        map.put('5', "jkl");
+        map.put('6', "mno");
+        map.put('7', "pqrs");
+        map.put('8', "tuv");
+        map.put('9', "wxyz");
+        
+        helper(res, map, digits, "", 0);
+        return res;
+    }
+    
+    private void helper(List<String> res, Map<Character, String> map, String digits, String comb, int index) {
+        if (index == digits.length()) {
+            res.add(""+comb);
+            return;
+        }
+        char[] list = map.get(digits.charAt(index)).toCharArray();
+        for (char ch : list) {
+            helper(res, map, digits, comb+ch, index+1);
+        }
     }
 }
