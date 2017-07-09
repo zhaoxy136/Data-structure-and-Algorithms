@@ -49,3 +49,48 @@ public class Solution {
         }
     }
 }
+
+//Version 1:
+public class Solution {
+    public void reorderList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode middle = findMiddle(head);
+        ListNode tail = reverse(middle.next);
+        ListNode cur = head;
+        while (tail.next != null) {
+            ListNode tmp = tail.next;
+            tail.next = cur.next;
+            cur.next = tail;
+            cur = tail.next;
+            tail = tmp;
+        }
+        if (cur == middle) {
+            cur.next = tail;
+        } else {
+            tail.next = cur.next;
+            cur.next = tail;
+            middle.next = null;
+        }
+    }
+    private ListNode reverse(ListNode head) {
+        ListNode prev = null;
+        while (head != null) {
+            ListNode next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
+    
+    private ListNode findMiddle(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+}
