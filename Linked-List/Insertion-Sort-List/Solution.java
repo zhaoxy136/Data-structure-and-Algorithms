@@ -87,6 +87,27 @@ public class Solution {
         return dummy.next;
     }
 }
+
+// Version 1' modified 07/17
+public class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        ListNode cur = dummy;
+        ListNode next = null;
+        while (head != null) {
+            next = head.next;
+            ListNode tmp = dummy;
+            while (tmp.next != null && tmp.next.val < head.val) {
+                tmp = tmp.next;
+            }
+            head.next = tmp.next;
+            tmp.next = head;
+            head = next;
+        }
+        return dummy.next;
+    }
+}
+
 // Version 2: more efficient 
 public class Solution {
     public ListNode insertionSortList(ListNode head) {
@@ -95,6 +116,7 @@ public class Solution {
         }
         ListNode dummy = new ListNode(0);
         dummy.next = head;
+        //prev always points to the tail of list already sorted
         ListNode prev = head;
         ListNode cur = head.next;
         while (cur != null){
