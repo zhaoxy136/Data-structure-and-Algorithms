@@ -1,0 +1,6 @@
+### The key is to correctly find two boundaries of unsorted subarray
+  use two pointer set to the leftmost and rightmost.
+  the right boundary--end should be a position which satisfies all elements on its right are already sorted and are all greater than the max value within its left
+  Similarly, the left boundary--begin, should be a position which satisfies all elements on its left are already sorted and are all less than the min value within its right.
+  
+  If the original array are already sorted, neither of begin nor end would be updated. But if one them was updated, the other did same.
