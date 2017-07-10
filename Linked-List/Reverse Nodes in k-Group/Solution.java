@@ -39,4 +39,22 @@ public class Solution {
     }
 }
 
-//Version 1:
+//Version 1: Recursive
+public class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode cur = head;
+        for (int i = 0; i < k; i++) {
+            if (cur == null) return head;
+            cur = cur.next;
+        }
+        cur = reverseKGroup(cur, k);
+        while (--k > 0) {
+            ListNode tmp = head.next;
+            head.next = cur;
+            cur = head;
+            head = tmp;
+        }
+        head.next = cur;
+        return head;
+    }
+}
