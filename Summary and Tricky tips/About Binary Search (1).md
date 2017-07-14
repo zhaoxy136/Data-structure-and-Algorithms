@@ -1,6 +1,7 @@
 ## 涉及题目
 >[Classic Binry Search](http://www.lintcode.com/en/problem/classical-binary-search/#)  
 >[Search For a Range](https://leetcode.com/problems/search-for-a-range/#/description)     
+>[Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/#/description)  
 
 ## 思路分析
 __二分法的思想虽然容易理解，但不同问题的具体实现却没有一个可以通用又简便的模版。接下来，我通过若干道二分法的问题来对该方法做出总结：__
@@ -44,15 +45,15 @@ __二分法的思想虽然容易理解，但不同问题的具体实现却没有
 回到找first position和last position的区别上，找first情况，出现mid位置满足条件，即nums[mid] == target时，end = mid；由上述分析我们已知不会出bug。部分代码如下：
 
     while (start < end) {
-            int mid = start + (end - start) / 2;
-            if (nums[mid] < target) {
-                start = mid + 1;
-            } else if (nums[mid] > target) {
-                end = mid - 1;
-            } else {
-                end = mid;
-            }
+        int mid = start + (end - start) / 2;
+        if (nums[mid] < target) {
+            start = mid + 1;
+        } else if (nums[mid] > target) {
+            end = mid - 1;
+        } else {
+            end = mid;
         }
+    }
     return nums[start] == target ? start : -1;
 但是在找last的情况下，出现mid位置满足条件时，start = mid就会出错，所以我们此时必须跳过start，令start=mid+1.从而在循环结束时，再判断start-1的位置是否满足。代码如下：
 
@@ -71,7 +72,7 @@ __二分法的思想虽然容易理解，但不同问题的具体实现却没有
         } else if (start > 0 && nums[start-1] == target) {
             return start - 1;
         }
-    return -1;
+    return -1;
 此前我们也说了，导致这么别扭的结果的罪魁祸首就是除法的结果只保留整数导致的，那么我们求mid时采用 mid = start + (end + 1 - start) / 2;是不是可以避免呢？即我们总将mid定位在偏后的位置，这样就可以安心另start = mid了。**要注意的是，这样的话end = mid就会导致错误啦！**
 
     while (start < end) {
@@ -84,10 +85,38 @@ __二分法的思想虽然容易理解，但不同问题的具体实现却没有
             start = mid;
         }
     }
-    return nums[start] == target ? start : -1; 
+    return nums[start] == target ? start : -1; 
 到此我们分析出了导致死循环的方法，以及循环体内更新start和end时要分析mid位置能否安全跳过
 
-### 
+### Sorted Array--Find Minimum Element
+接下来我们考虑一个rotated后的排序数组，即数组被整体平移过了，它的最大值可能在中间某个位置。这样导致了数组内的连续递增性遭到了破坏。
+这道题我们可以很快确定如果想在O(log(n))的时间复杂度下完成一定要用到二分法。接下来要考虑的就是如何转化题目：
+1. 找到第一个小于nums[0]的位置
+2. 找到第一个小于nums[nums.length-1]的位置
+3. 找到nums[i] < nums[i-1]的位置
+经过尝试，方法1和方法3都需要
+
+    while (start < end) {
+        int mid = start + (end - start) / 2;
+        if (nums[mid] < nums[0]) {
+            end = mid;
+        } else {
+            start = mid + 1;
+        }
+    }
+    if (nums[start] < nums[0]) return nums[start];
+    return nums[0];
+
+
+    while (start < end) {
+        int mid = start + (end - start) / 2;
+        if (nums[mid] <= nums[nums.length -1]) {
+            end = mid;
+        } else {
+            start = mid + 1;
+        }
+    }
+    return nums[start];
 
 
 
@@ -97,5 +126,6 @@ __二分法的思想虽然容易理解，但不同问题的具体实现却没有
 + 导致上述死循环的原因是计算mid位置的方法---当有两个中点时总是选择靠前的一个，因此可以另mid=start + (end+1-start)/2 来锁定靠后的那个，从而放心使用start=mid，代价是不能使用end=mid。 往往找first position时按正常习惯写，找last position时将mid取在靠后位置。
 
 ## 其他相关参考题目
->[First Bad Version](https://leetcode.com/problems/first-bad-version/#/description) 
->[Search Insert Position](https://leetcode.com/problems/search-insert-position/#/description)
+>[First Bad Version](https://leetcode.com/problems/first-bad-version/#/description)  
+>[Search Insert Position](https://leetcode.com/problems/search-insert-position/#/description)  
+>[Find Peak Element](https://leetcode.com/problems/find-peak-element/#/description)  
