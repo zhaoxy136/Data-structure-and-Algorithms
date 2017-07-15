@@ -2,6 +2,7 @@
 >[Classic Binry Search](http://www.lintcode.com/en/problem/classical-binary-search/#)  
 >[Search For a Range](https://leetcode.com/problems/search-for-a-range/#/description)     
 >[Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/#/description)  
+>[Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/#/description)  
 
 ## 思路分析
 __二分法的思想虽然容易理解，但不同问题的具体实现却没有一个可以通用又简便的模版。接下来，我通过若干道二分法的问题来对该方法做出总结：__
@@ -85,7 +86,7 @@ __二分法的思想虽然容易理解，但不同问题的具体实现却没有
             start = mid;
         }
     }
-    return nums[start] == target ? start : -1; 
+    return nums[end] == target ? end : -1; //还要注意的就是，此时start不一定是候选范围内的，而end一定是。所以最后要比较end位置是否满足条件。
 到此我们分析出了导致死循环的方法，以及循环体内更新start和end时要分析mid位置能否安全跳过
 
 ### Sorted Array--Find Minimum Element
@@ -93,8 +94,8 @@ __二分法的思想虽然容易理解，但不同问题的具体实现却没有
 这道题我们可以很快确定如果想在O(log(n))的时间复杂度下完成一定要用到二分法。接下来要考虑的就是如何转化题目：
 1. 找到第一个小于nums[0]的位置
 2. 找到第一个小于nums[nums.length-1]的位置
-3. 找到nums[i] < nums[i-1]的位置
-经过尝试，方法1和方法3都需要
+
+方法1还需要考虑如果while出来后nums[start] > nums[0]，则说明数组没有rotated，需返回nums[0]，部分代码如下：
 
     while (start < end) {
         int mid = start + (end - start) / 2;
@@ -106,7 +107,7 @@ __二分法的思想虽然容易理解，但不同问题的具体实现却没有
     }
     if (nums[start] < nums[0]) return nums[start];
     return nums[0];
-
+方法2则不需要分开考虑，不论数组有没有rotate，第一个小于nums[len-1]的数一定就是最小值：
 
     while (start < end) {
         int mid = start + (end - start) / 2;
@@ -117,6 +118,40 @@ __二分法的思想虽然容易理解，但不同问题的具体实现却没有
         }
     }
     return nums[start];
+
+### Search in Rotated Sorted Array
+接下来我们进一步分析如何在rotated array里进行查找。  
+首先，由上面的找起始点问题得到启发，我们可以先用一个二分找到最小位置，从而确定target在其左或者右。然后再用一个二分进行查找。  
+但我们也可以用一次二分来对其解决。如下图所示  
+在此再提一下二分法的思想核心：通过O(1)的操作将问题的规模减半，或按比例降低。通俗地讲，找到一个标准使原问题去掉一半。
+![](https://github.com/zhaoxy136/LeetCode/blob/master/Summary%20and%20Tricky%20tips/Search%20in%20rotated%20array.png)
+对于rotated array，mid的划分有两种可能，即上图中的红线和绿线所示。而对于这两种情况我们要分别讨论。过程中不仅要比较target和nums[mid],还要借助nums[start]和nums[end]来完成。代码实现如下：
+
+    public int search(int[] nums, int target) {
+        if (nums == null || nums.length == 0) return -1;
+        int start = 0;
+        int end = nums.length - 1;
+        while (start < end) {
+            int mid = start + ((end - start) >> 1);
+            if (nums[mid] == target) return mid;
+            if (nums[mid] >= nums[start]) {
+            //red line
+                if (target < nums[mid] && nums[start] <= target) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            } else {
+            //green line
+                if (nums[mid] < target && target <= nums[end]) {
+                    start = mid + 1;
+                } else {
+                    end = mid - 1;
+                }
+            }
+        }
+        return nums[start] == target ? start : -1;
+    }
 
 
 
