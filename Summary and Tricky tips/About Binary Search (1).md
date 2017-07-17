@@ -170,29 +170,29 @@ __二分法的思想虽然容易理解，但不同问题的具体实现却没有
 这道题的思路与I基本一样，唯一不同的是：由于允许重复的存在，最坏情况是无法通过二分来找到的。可以想象111...0..11的情况（只有一个0）  
 但我们还是希望给出二分的解法，因为这样平均时间复杂度会更低：
 
-        while (start < end) {
-            int mid = start + (end - start) / 2;
-            if (nums[mid] == target) return true;
-            if (nums[mid] > nums[end]) {  
-                //可以确定“断层”在mid的右侧，然后再分情况讨论 
-                if (nums[start] <= target && target < nums[mid]) {
-                    end = mid - 1;
-                } else {
-                    start = mid + 1;
-                }
-            } else if (nums[mid] < nums[end]) {
-                //可以确定mid一定在右侧，即绿线区域 
-                if (nums[mid] < target && target <= nums[end]) {
-                    start = mid + 1;
-                } else {
-                    end = mid - 1;
-                }
-            } else {//到这一步只能得出nums[end] == nums[mid] && nums[mid] != target,所以只能排除end位置，以防最坏情况出现 
-                end--;
+    while (start < end) {
+        int mid = start + (end - start) / 2;
+        if (nums[mid] == target) return true;
+        if (nums[mid] > nums[end]) {  
+            //可以确定“断层”在mid的右侧，然后再分情况讨论  
+            if (nums[start] <= target && target < nums[mid]) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
             }
-            
+        } else if (nums[mid] < nums[end]) {
+            //可以确定mid一定在右侧，即绿线区域 
+            if (nums[mid] < target && target <= nums[end]) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        } else {
+            //到这一步只能得出nums[end] == nums[mid] && nums[mid] != target,所以只能排除end位置，以防最坏情况出现 
+            end--;
         }
-        return nums[start] == target;
+    }
+    return nums[start] == target;
 
 
 ## 小结
