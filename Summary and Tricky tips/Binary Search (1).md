@@ -1,3 +1,5 @@
+# 二分法解析 --- 一维排序数组上的二分
+
 ## 涉及题目
 >[Classic Binry Search](http://www.lintcode.com/en/problem/classical-binary-search/#)  
 >[Search For a Range](https://leetcode.com/problems/search-for-a-range/#/description)     
