@@ -3,6 +3,7 @@
 >[Search For a Range](https://leetcode.com/problems/search-for-a-range/#/description)     
 >[Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/#/description)  
 >[Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/#/description)  
+>[Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/#/description)
 
 ## 思路分析
 __二分法的思想虽然容易理解，但不同问题的具体实现却没有一个可以通用又简便的模版。接下来，我通过若干道二分法的问题来对该方法做出总结：__
@@ -134,7 +135,7 @@ __二分法的思想虽然容易理解，但不同问题的具体实现却没有
         while (start < end) {
             int mid = start + ((end - start) >> 1);
             if (nums[mid] == target) return mid;
-            if (nums[mid] >= nums[start]) {
+            if (nums[mid] > nums[end]) { //注意，对于rotated array，要用mid和end做比较，这一点从上一点也可以看出。
             //red line
                 if (target < nums[mid] && nums[start] <= target) {
                     end = mid - 1;
@@ -153,12 +154,52 @@ __二分法的思想虽然容易理解，但不同问题的具体实现却没有
         return nums[start] == target ? start : -1;
     }
 
+这时候再返回看rotated array找最小值的问题，可以发现，它相当于search的一种特殊情况。我们按照相同的思考方式做改写：
+
+    while (start < end) {
+        int mid = start + (end - start) / 2;
+        if (nums[mid] > nums[end]) {
+            start = mid + 1;//此时mid必定不是最小值，可以跳过 
+        } else {
+            end = mid;//因为mid位置可能就是最小值所以不能直接舍去 
+        }
+    }
+    return nums[start];
+
+### Search in Rotated Sorted Array II
+这道题的思路与I基本一样，唯一不同的是：由于允许重复的存在，最坏情况是无法通过二分来找到的。可以想象111...0..11的情况（只有一个0）  
+但我们还是希望给出二分的解法，因为这样平均时间复杂度会更低：
+
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] == target) return true;
+            if (nums[mid] > nums[end]) {  
+                //可以确定“断层”在mid的右侧，然后再分情况讨论 
+                if (nums[start] <= target && target < nums[mid]) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            } else if (nums[mid] < nums[end]) {
+                //可以确定mid一定在右侧，即绿线区域 
+                if (nums[mid] < target && target <= nums[end]) {
+                    start = mid + 1;
+                } else {
+                    end = mid - 1;
+                }
+            } else {//到这一步只能得出nums[end] == nums[mid] && nums[mid] != target,所以只能排除end位置，以防最坏情况出现 
+                end--;
+            }
+            
+        }
+        return nums[start] == target;
 
 
 ## 小结
 由此上分析我们分别找出了结症所在以及一些结论：
 + 如果while循环判定为 **start < end** 的话，则循环体内**一定不能有 `start = mid` 语句**, 否则会导致死循环！
 + 导致上述死循环的原因是计算mid位置的方法---当有两个中点时总是选择靠前的一个，因此可以另mid=start + (end+1-start)/2 来锁定靠后的那个，从而放心使用start=mid，代价是不能使用end=mid。 往往找first position时按正常习惯写，找last position时将mid取在靠后位置。
++ 对于rotated array，要根据mid切在哪一部分而做不同分析。而判断的依据是用mid和end做比较，**而不是**与start比较。 从而打到去掉一半的目的。
 
 ## 其他相关参考题目
 >[First Bad Version](https://leetcode.com/problems/first-bad-version/#/description)  
