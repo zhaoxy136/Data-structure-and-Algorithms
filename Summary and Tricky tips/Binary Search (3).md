@@ -2,7 +2,8 @@
 
 ## 涉及题目
 > [Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/#/description)  
-> []()  
+> [Sqrt(x)](https://leetcode.com/problems/sqrtx/#/description)  
+
 
 ## 思路分析
 对于一些题目，提供的数组或序列并没有排序处理。在限定了时间及空间复杂度的情况下（例如原本需要O(n)或者O(n2)的时间完成的，又要求限定空间O(1)时进一步优化 )，我们既无法借助数据结构来降低空间，那么只能将时间向对数级别降低，最常用的方法就是`二分法`了。  
@@ -45,6 +46,43 @@
         }
         return start;
     }
+
+### Implement int sqrt(int x)
+题目要求很简单，即求一整数的平方根。这道题也没有清晰的提示用二分法来解决，但很明显如果从小到大一个一个试确实是比较慢的，很自然的会想到先在中间找个数试一试。那么1～x其实就构成了一种**隐含排序**，我们可进一步把题目转化为：在从1到x之间，找到最后一个乘方小于等于x的数。这不就是二分法的标准表述吗？
+
+    public int mySqrt(int x) {
+        if (x <= 1) return x;
+        int start = 1, end = x;
+        while (start < end) {
+            int mid = start + (end + 1 - start) / 2;
+            if (x / mid == mid) return mid;
+            if (x / mid < mid) {
+                end = mid - 1;
+            } else {
+                start = mid;
+            }
+        }
+        return end;
+    }
+要提醒注意的一点是，本题是找last position，所以注意取中点时应取靠后的那一个，来避免死循环。
+
+
+
+
+## 小结
+
+
+
+
+
+
+
+
+## 其他相关题目
+> [Valid Perfect Square](https://leetcode.com/problems/valid-perfect-square/#/description)  
+> []()
+
+
 
 
 
