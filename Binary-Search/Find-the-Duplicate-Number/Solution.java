@@ -31,10 +31,10 @@ public class Solution {
 //Version 1: binary search
 public class Solution {
     public int findDuplicate(int[] nums) {
-        int low = 1;
-        int high = nums.length-1; // high = n
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
+        int start = 1;
+        int end = nums.length-1; // high = n
+        while (start < end) {
+            int mid = start + (end - start) / 2;
             int count = 0;
             for (int num : nums) {
                 if (num <= mid) {
@@ -42,11 +42,11 @@ public class Solution {
                 }
             }
             if (count <= mid) {
-                low = mid + 1;
+                start= mid + 1;
             } else {
-                high = mid - 1;
+                end = mid;
             }
         }
-        return low;
+        return start;
     }
 }
