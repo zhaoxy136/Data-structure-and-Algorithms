@@ -66,11 +66,30 @@
     }
 要提醒注意的一点是，本题是找last position，所以注意取中点时应取靠后的那一个，来避免死循环。
 
+### Find Right Interval
+本题第一反应应该是要排序，但要注意的是要求返回原来顺序的结果，所以排序不能在原数组内进行。本题由于start起点是各不相同的，故应该对start进行排序，排序结束后可再利用二分去查找满足条件的interval，即第一个start点大于等于所求区间end的interval。部分代码如下：
+
+    public int[] findRightInterval(Interval[] intervals) {
+        int[] res = new int[intervals.length];
+        Map<Integer, Integer> map = new HashMap<>();
+        int[] starts = new int[intervals.length];
+        for (int i = 0; i < intervals.length; i++) {
+            starts[i] = intervals[i].start;
+            map.put(starts[i], i);
+        }
+        Arrays.sort(starts);
+        for (int i = 0; i < intervals.length; i++) {
+            res[i] = map.getOrDefault(binarySearch(starts, intervals[i].end), -1);
+        }
+        return res;
+    }
 
 
 
 ## 小结
-
++ 许多unsorted或者无法排序的数组，特别是在数组元素范围已知的情况下，可以考虑二分。能否得以实施关键要找到能否通过某些标准去除掉一半。
++ 对于本身就不是数组的问题，如果是自然数1～n，且很容易确定界限时，也应该考虑二分。关键考察结果满足怎样的标准
++ 对于没有限制排序的题目，可以先排序。若排序后还需要O(n2)的复杂度时，可以考虑通过二分降低至O(nlog(n))。**且往往这种排序与二分结合的例子，可以通过数据结构TreeSet或TreeMap来实现，只不过需要额外的空间。
 
 
 
@@ -80,7 +99,9 @@
 
 ## 其他相关题目
 > [Valid Perfect Square](https://leetcode.com/problems/valid-perfect-square/#/description)  
-> []()
+> [Heaters](https://leetcode.com/problems/heaters/#/description)  
+> []()  
+>
 
 
 
