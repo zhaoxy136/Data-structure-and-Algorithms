@@ -127,7 +127,7 @@ __二分法的思想虽然容易理解，但不同问题的具体实现却没有
 首先，由上面的找起始点问题得到启发，我们可以先用一个二分找到最小位置，从而确定target在其左或者右。然后再用一个二分进行查找。  
 但我们也可以用一次二分来对其解决。如下图所示  
 在此再提一下二分法的思想核心：通过O(1)的操作将问题的规模减半，或按比例降低。通俗地讲，找到一个标准使原问题去掉一半。
-![](https://github.com/zhaoxy136/LeetCode/blob/master/Summary%20and%20Tricky%20tips/Search%20in%20rotated%20array.png)
+![](https://github.com/zhaoxy136/LeetCode/blob/master/Summary%20and%20Tricky%20tips/assets/Search%20in%20rotated%20array.png)
 对于rotated array，mid的划分有两种可能，即上图中的红线和绿线所示。而对于这两种情况我们要分别讨论。过程中不仅要比较target和nums[mid],还要借助nums[start]和nums[end]来完成。代码实现如下：
 
     public int search(int[] nums, int target) {
@@ -161,7 +161,7 @@ __二分法的思想虽然容易理解，但不同问题的具体实现却没有
     while (start < end) {
         int mid = start + (end - start) / 2;
         if (nums[mid] > nums[end]) {
-            start = mid + 1;//此时mid必定不是最小值，可以跳过 
+            start = mid + 1;//此时mid必定不是最小值，可以跳过 
         } else {
             end = mid;//因为mid位置可能就是最小值所以不能直接舍去 
         }
