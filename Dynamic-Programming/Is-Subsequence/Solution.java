@@ -1,22 +1,16 @@
-//Version 0: 60 ms solution, using charAt
+//Version 0: 40 ms solution, using charAt
 public class Solution {
     public boolean isSubsequence(String s, String t) {
-        if(s.length() == 0){
-            return true;
-        }
-        int index = 0;
-        int i = 0;
-        while(i < t.length()){
-            if(t.charAt(i) == s.charAt(index)){
-                index++;
-            }
+        if (s.length() == 0) return true;
+        int i = 0, j = 0;
+        while (i < s.length()) {
+            while (j < t.length() && t.charAt(j) != s.charAt(i)) j++;
+            if (j++ >= t.length()) return false;
             i++;
-            if(index == s.length()){
-                return true;
-            }
         }
-        return false;
-     }
+        return i == s.length();
+        
+    }
 }
 
 //Version 1: 2 ms solution, using indexOf
