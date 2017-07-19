@@ -2,7 +2,7 @@
 [Maximum subarray](https://leetcode.com/problems/maximum-subarray/#/description)  
 [Maximum product subarray](https://leetcode.com/problems/maximum-product-subarray/#/description)
 
-##思路分析
+## 思路分析
 这两道题都用了DP的思想，但又进行了极大简化。 第一题如果从DP的角度看，应该用一个array来记录 dp[i]表示，以i位置元素结尾的最大和subarray的和。  
 则有`dp[i] = dp[i-1] + arr[i-1]` 和 `arr[i-1]`本身组成的array相比较。  
 最后从dp[i]中选择最大的结果作为最终结果。  
