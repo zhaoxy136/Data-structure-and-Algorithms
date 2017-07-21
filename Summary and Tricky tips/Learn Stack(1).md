@@ -4,7 +4,9 @@ stack听起来或许不陌生，但真正能理解它又不是一件容易的事
 
 ## 涉及题目：
 > [Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/#/description)  
-> [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/#/description)
+> [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/#/description)  
+> [Basic Calculator](https://leetcode.com/problems/basic-calculator/#/description)  
+> [Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/#/description)  
 > []()
 
 ## 思路分析
@@ -88,17 +90,56 @@ stack听起来或许不陌生，但真正能理解它又不是一件容易的事
         return res;
     }
 
-### 
+### Basic Calculator I
+计算器的题目好似自然就与stack有关联，因为**算式内包含着取多嵌套关系，每一层内又是一个算式；这一层结束后将结果返回给上一层继续运算。**
 
+那么我们要关注的点就在于什么时候进行进栈操作，什么时候进行出栈操作。对于本题不涉及乘除操作，而只是加减和括号之间的操作。  
+> 括号内的优先级高于括号外，就好比执行程序的过程中遇到了方法的调用；  
+> 遇到开括号则说明要将上一层的运算暂停，进行下一层的运算，此时的状态就如同刚开始一样；  
+> 遇到闭括号则说明内层运算结束，要将内层的结果返回给外层运算，并且继续外层运算的执行。
 
+了解这些`机制`后，只要处理如何提取整数，如何设定符号，如何处理空格即可。关于用几个栈的问题，比较明朗的是采用两个栈的模式，一个用来存结果，另一个用来存
+符号。  
+但这道题涉及到的运算符号只有加减，我们可以把加减用1和-1代替，而且既然两个栈都是同时push和同时pop的。我们便可以用一个栈来储存这些信息，只要记得顺利就好。部分代码如下：
 
+    public int calculate(String s) {
+        Stack<Integer> stack = new Stack<>();
+        int sign = 1;
+        int res = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
+                int num = s.charAt(i) - '0';
+                while (i+1 < s.length() && Character.isDigit(s.charAt(i+1))) {
+                    num = num * 10 + s.charAt(i+1) - '0';
+                    i++;
+                }
+                res += sign * num;
+            } else if (s.charAt(i) == '+') {
+                sign = 1;
+            } else if (s.charAt(i) == '-') {
+                sign = -1;
+            } else if (s.charAt(i) == '(') {
+                stack.push(res);
+                stack.push(sign);
+                res = 0;
+                sign = 1;
+            } else if (s.charAt(i) == ')') {
+                sign = stack.pop();
+                res = res * sign + stack.pop();
+            }
+        }
+        return res;
+    }
 
+### Basic Calculator II
 
 
 
 
 
 ## 小结
+
+
 
 
 
