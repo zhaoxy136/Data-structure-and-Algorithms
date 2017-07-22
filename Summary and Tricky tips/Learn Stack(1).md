@@ -132,6 +132,45 @@ stack听起来或许不陌生，但真正能理解它又不是一件容易的事
     }
 
 ### Basic Calculator II
+本题去除了括号，而加入了乘除操作。所以还是有两个不同级别的优先级。  
+所以按照之前的思路研究，什么时候入栈和什么时候出栈是这道题的关键。由于没有了开闭括号，我们并没有明确的内层操作开始和结束的标志。  
+与上一题相同的是，我们需要记录的是当前的数值和符号，而且注意符号是指**值前面的符号**---这就是为什么我们会把sign初试为'+'的原因。  
+那我们区分现在处于外层运算（加减）还是内层运算（乘除）的根据就是符号。如果符号是+或-，即可把当前的值压入栈内；若符号是\*或／，则需要将当前值与上一个值相互操作，需要挤出栈顶元素，操作后将新的值在放入栈顶。最后把栈内的元素全部相加即可得到结果。  
+所以**每当遇到符号时都要考虑进栈和出栈**，此外，遍历进行到最后时也应该考虑进栈，否则最后一个值可能被忽略。
+
+代码如下：
+
+    public int calculate(String s) {
+        Stack<Integer> stack = new Stack<>();
+        char sign = '+';
+        int num = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) >= '0' && s.charAt(i) <= '9') {
+                num = num * 10 + s.charAt(i) - '0';
+            }
+            if ((s.charAt(i) != ' ' && (s.charAt(i) < '0' || s.charAt(i) > '9')) || i == s.length()-1) {
+                if (sign == '+') {
+                    stack.push(num);
+                }
+                if (sign == '-') {
+                    stack.push(-1 * num);
+                }
+                if (sign == '*') {
+                    stack.push(stack.pop() * num);
+                }
+                if (sign == '/') {
+                    stack.push(stack.pop() / num);
+                }
+                sign = s.charAt(i);
+                num = 0;
+            }
+        }
+        int res = 0;
+        while (!stack.isEmpty()) {
+            res += stack.pop();
+        }
+        return res;
+    }
 
 
 
