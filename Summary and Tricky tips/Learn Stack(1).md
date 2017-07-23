@@ -183,6 +183,6 @@ stack听起来或许不陌生，但真正能理解它又不是一件容易的事
 
 
 ## 其他相关题目
-> []()  
+> [Mini Parser](https://leetcode.com/problems/mini-parser/#/description)  
 > []()  
 
