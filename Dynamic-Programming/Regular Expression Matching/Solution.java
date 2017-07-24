@@ -4,7 +4,6 @@ public class Solution {
         if (p == null || p.length() == 0) return s.length() == 0;
         boolean[][] dp = new boolean[s.length()+1][p.length()+1];
         dp[0][0] = true;
-        dp[0][1] = p.charAt(0) == '.';
         for (int i = 1; i < p.length(); i++) {
             dp[0][i+1] = p.charAt(i) == '*' && dp[0][i-1];
         }
