@@ -7,7 +7,7 @@ stack听起来或许不陌生，但真正能理解它又不是一件容易的事
 > [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/#/description)  
 > [Basic Calculator](https://leetcode.com/problems/basic-calculator/#/description)  
 > [Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/#/description)  
-> []()
+> [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/#/description)
 
 ## 思路分析
 
@@ -172,17 +172,21 @@ stack听起来或许不陌生，但真正能理解它又不是一件容易的事
         return res;
     }
 
+### Largest Rectangle in Histogram
+
+
 
 
 
 
 ## 小结
-
-
-
++ 凡事可以用递归解决的问题都可以用栈来处理，因为递归的本质也是用栈，只不过不需要自己维护而已。所以当遇到可以用递归思路，又很难实现的时候用一个自己维护的栈是一个不错的选择。
++ 栈作为一种线性的数据结构，可以为我们提供维持栈内顺序的作用，故可以根据需求分为`递增栈`和`递减栈`。
++ 使用栈的时候一定要分析清楚什么情况下进栈，什么情况下出栈。并且分析出进栈和出栈分别展现来哪些信息？（如：遇到了右边第一个比自己大／小的元素）
++ 此外还应注意栈内存的是什么？有时存的是数据本身，但对于数组有时存的又是index。
 
 
 ## 其他相关题目
 > [Mini Parser](https://leetcode.com/problems/mini-parser/#/description)  
-> []()  
+> [132 Pattern](https://leetcode.com/problems/132-pattern/#/description)  
 
