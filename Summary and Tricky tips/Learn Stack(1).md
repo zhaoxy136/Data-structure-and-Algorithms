@@ -173,10 +173,24 @@ stack听起来或许不陌生，但真正能理解它又不是一件容易的事
     }
 
 ### Largest Rectangle in Histogram
+本题描述很简单，判定标准也比较清晰。类似木桶原理，矩形的宽即左右边界之差，矩形的高即为最矮的‘木板’高度。我们很容易想到O(n2)的解法：
 
-
-
-
+    public int largestRectangleArea(int[] heights) {
+        int res = 0;
+        for (int i = 0; i < heights.length; i++) {
+            int minHeight = heights[i];
+            for (int j = i; j < heights.length; j++) {
+                if (heights[j] < minHeight) {
+                    minHeight = heights[j];
+                }
+                res = Math.max(res, (j - i + 1) * minHeight);
+            }
+        }
+        return res;
+    }
+    
+而当题目提出更优的时间复杂度需求时，我们可选的基本只有O(nlogn)和O(n)。往往logn要结合二分法来解决，显然此题不太适合。所以我们要向O(n)的方向取优化。 
+过程中肯定会考虑DP的算法，但是DP擅长的往往是将非多项式级别的复杂度降低至多项式级别。从O(n2)向O(n)优化往往不是DP
 
 
 ## 小结
