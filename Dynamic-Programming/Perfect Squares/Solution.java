@@ -72,3 +72,34 @@ public class Solution {
     }
 }
 
+//BFS method
+public class Solution {
+    public int numSquares(int n) {
+        if (n <= 0) return 0;
+        Queue<Integer> queue = new LinkedList<>();
+        List<Integer> squares = new ArrayList<>();
+        int[] nums = new int[n+1];
+        for (int i = 1; i * i <= n; i++) {
+            if (i * i == n) return 1;
+            queue.offer(i*i);
+            squares.add(i*i);
+            nums[i*i] = 1;
+        }
+        int step = 1;
+        while (!queue.isEmpty()) {
+            step++;
+            int size = queue.size();
+            while (size-- > 0) {
+                int val = queue.poll();
+                for (int num : squares) {
+                    if (val + num == n) return step;
+                    if (val + num < n && nums[val + num] == 0) {
+                        queue.offer(val + num);
+                        nums[val+num] = step;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+}
