@@ -17,11 +17,12 @@ public class Solution {
                 if (row >= 0 && row < m && col >= 0 && col < n && roots[val] != -1) {
                     while (val != roots[val]) val = roots[val];
                     if (val != roots[root]) {
-                        roots[root] = val;
-                        root = val;
+                        //faster
+                        // roots[root] = val;
+                        // root = val;
+                        roots[val] = root;
                         count--;
                     }
-                    
                 }
             }
             res.add(count);
