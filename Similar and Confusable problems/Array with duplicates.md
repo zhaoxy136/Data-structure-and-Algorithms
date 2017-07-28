@@ -105,8 +105,9 @@
         return n+1;
     }
 
-
-
+## 其他相关题目
+> [Find the Difference](https://leetcode.com/problems/find-the-difference/#/description)  
+> [Set Mismatch](https://leetcode.com/problems/set-mismatch/tabs/description)
 
 
 
