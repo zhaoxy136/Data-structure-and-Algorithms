@@ -22,8 +22,9 @@ public class Solution {
         if (matrix == null || matrix.length == 0) return 0;
         int[] dp = new int[matrix[0].length+1];
         int edge = 0;
-        int prev = 0;
         for (int i = 1; i <= matrix.length; i++) {
+            int prev = dp[0];
+            dp[0] = 0;
             for (int j = 1; j <= matrix[0].length; j++) {
                 int tmp = dp[j];
                 if (matrix[i-1][j-1] == '1') {
