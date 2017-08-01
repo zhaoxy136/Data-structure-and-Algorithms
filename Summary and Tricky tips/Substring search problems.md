@@ -4,7 +4,7 @@
 > [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/description/)  
 > [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/description/)  
 > [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/)  
-> [Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/description/)   
+   
 
 ## 思路分析
 这类题目的共性如题所说，就是给出一个字符串，找出其子满足特定条件的子字符串。对于搜索问题，这类题目的**搜索空间**非常明确就是字符串。  
@@ -14,7 +14,7 @@
 + [10 line template](https://discuss.leetcode.com/topic/30941/here-is-a-10-line-template-that-can-solve-most-substring-problems)  
 + [Sliding Window algorithm template](https://discuss.leetcode.com/topic/68976/sliding-window-algorithm-template-to-solve-all-the-leetcode-substring-search-problem)
 
-两个模版的思路基本一样，都是hashmap + two pointers的模式。首先令end指针不断向前更新，当
+两个模版的思路基本一样，都是hashmap + two pointers的模式。
 
 首先看java书写的常规模版：
 
@@ -162,9 +162,7 @@
         return max;
     }
 
-### Substring with Concatenation of All Words
-
-
 
 ## 其他相关题目
 > [Longest Substring with At Most Two Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/description/)  
+> [Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/description/)  
