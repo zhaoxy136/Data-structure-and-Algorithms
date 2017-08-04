@@ -1,3 +1,4 @@
+//using one arraylist and one hashmap, key is the element, value is the index in arraylist
 public class RandomizedSet {
     Map<Integer, Integer> map;
     List<Integer> list;
