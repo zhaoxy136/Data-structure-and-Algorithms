@@ -144,6 +144,6 @@
 
 ## 其他相关题目
 > [Find Right Interval](https://leetcode.com/problems/find-right-interval/description/)  
-> []()  
+> [Insert Interval](https://leetcode.com/problems/insert-interval/description/)  
 > []()  
 > []()  
