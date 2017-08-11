@@ -78,20 +78,22 @@ public class Solution {
     }
 }
 
-//Version 2: Using Stack, not easy to come up with
+//Version 2: Using Stack
 public class Solution {
     public int trap(int[] height) {
-        Stack<Integer> s = new Stack<>();
-        int i = 0;
-        int sum = 0;
-        while (i < height.length) {
-            if (s.isEmpty() || height[i] <= height[s.peek()]) {
-                s.push(i++);
-            } else {
-                int bot = height[s.pop()];
-                sum += s.isEmpty() ? 0 : (Math.min(height[i], height[s.peek()]) - bot) * (i - s.peek() - 1);
+        int res = 0;
+        Stack<Integer> st = new Stack<>();
+        for (int i = 0; i < height.length; i++) {
+            while (!st.isEmpty() && height[i] > height[st.peek()]) {
+                int bot = height[st.pop()];
+                if (!st.isEmpty()) {
+                    int width = i - st.peek() -1;
+                    int deep = Math.min(height[i], height[st.peek()]) - bot;
+                    res += width * deep;
+                }
             }
+            st.push(i);
         }
-        return sum;
+        return res;
     }
 }
