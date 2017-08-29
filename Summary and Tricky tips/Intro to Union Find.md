@@ -20,7 +20,7 @@
  + int `find(int p)`
  + boolean `isConnect(int p, int q)`
 
-则我们的初步实现为：
+一、我们的初步实现为：
 
     public class UF {
       int count;   //连通分量数
@@ -58,23 +58,8 @@
     }
 上述算法中find复杂度为O(1), union复杂度为O(n). 故称作**quick-find**
 
-union操作的复杂度过高，于是我们引入树的概念，当做union时，即为将两个树合并的过程：先找到两个节点所在树的根节点，然后合并。
+二、union操作的复杂度过高，于是我们引入树的概念，当做union时，即为将两个树合并的过程：先找到两个节点所在树的根节点，然后合并。对union和find做以下修改：
 
-    public class UF {
-      int count;   //连通分量数
-      int[] id;    //每个数所属的连通分量
-
-      public UF(int N) {   //初始化时，N个点有N个分量
-        count = N;
-        id = new int[N];
-        for (int i = 0; i < N; i++) {
-            id[i] = i;
-        }
-      }
-      public int getCount(){
-        return count;
-      }
-      
       public int find(int x){
         //若不是根节点，则继续向上找
         while (x != id[x]) {
@@ -90,16 +75,10 @@ union操作的复杂度过高，于是我们引入树的概念，当做union时�
         id[pRoot] = qRoot;
         count--;
       }
-      
-      //判断p,q是否连接，即是否属于同一个分量
-      public boolean connected(int p,int q){
-        return find(p)==find(q);
-      }
-    }
     
 由于这种实现提高了union的效率，故被称为**quick-union**算法。find()的复杂度为O(lgn) ~ O(n). union()的复杂度也是O(lgn) ~ O(n),即树的高度。
 
-很容易注意到，当上述结构中树极度不平衡时，union和find的复杂度都是O(n),于是我们希望每次union时将树尽可能的平衡。则需要根据两者的大小来判断：总是将size较小的树并为size较大树的子树。
+三、很容易注意到，当上述结构中树极度不平衡时，union和find的复杂度都是O(n),于是我们希望每次union时将树尽可能的平衡。则需要根据两者的大小来判断：总是将size较小的树并为size较大树的子树。
 
     public class UF {
       int count;   //连通分量数
@@ -146,8 +125,23 @@ union操作的复杂度过高，于是我们引入树的概念，当做union时�
       }
     }
 
-通过size数组决定如何对两棵树进行合并之后，最后得到的树的高度大幅度减小了。
+通过size数组决定如何对两棵树进行合并之后，最后得到的树的高度大幅度减小了。find和union的复杂度都稳定在O(lgn)级别。称为**weighted UF 算法**
 
+四、注意到通过上述算法，我们数据的整体结构如下图表示：
+![](https://github.com/zhaoxy136/LeetCode/blob/master/Summary%20and%20Tricky%20tips/assets/Union%20Find.png)
+换句话说：树的结构越**扁平化**，复杂度就越低。那么我们可以通过**压缩路径**的方法进一步“压扁”这棵树。  
+具体做法是：在进行find的时候，将节点的父节点指向该节点的爷爷节点。这一点很巧妙，相当于在寻找根节点的同时，对路径进行了压缩，使整个树结构扁平化。  
+代码实现上也只是对find方法做了微调，加了一行代码。
+
+    public int find(int x){
+      while (x != id[x]) {
+        id[x] = id[id[x]];
+        x = id[x];
+      }
+      return x;
+    }
+
+至此，find和union的复杂度基本可以达到接近O(1)的复杂度。
 
 ### Friend Circles
 
@@ -159,9 +153,11 @@ union操作的复杂度过高，于是我们引入树的概念，当做union时�
 
 
 ## 小结
+ + union-find算法不能求具体联通路径，求路径需要用DFS搜索算法
  + quick-find 算法中，int[] id表示的是每个节点所属`分支`，可以理解为根的id;
- + quick-union算法中，int[] id表示的是每个节点的parent节点，所以在find()中要一直循环向上找根；
- + 
+ + quick-union算法中，int[] id表示的是每个节点的`parent节点`，所以在find()中要一直循环向上找根；
+ + weighted UF算法主要引入了size数组，用于将小树向大树合并
+ + compressed path十分巧妙，在find的同时优化了结构。
 
 ## 其他相关题目
 
