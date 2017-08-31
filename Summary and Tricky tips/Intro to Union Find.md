@@ -2,8 +2,8 @@
 
 ## 涉及题目
  > [Friend Circles](https://leetcode.com/problems/friend-circles/description/)  
- > []()  
- > []()  
+ > [Graph Valid Tree](https://leetcode.com/problems/graph-valid-tree/description/)  
+ > [Number of Islands II](https://leetcode.com/problems/number-of-islands-ii/description/)  
  
  
 ## 解题思路
@@ -144,21 +144,109 @@
 至此，find和union的复杂度基本可以达到接近O(1)的复杂度。
 
 ### Friend Circles
+本题实则为一无向图，点与点之间相连，求出共有几个连通分量。属于典型的union-find问题。按照模型先构建UF类。  
+题目的输入为adjacency matrix，且矩阵是对称的。我们只需要遍历矩阵i从0~n，j从i+1~n（因为，对角线必然联通，另一侧又可由对称处理）
 
+    public int findCircleNum(int[][] M) {
+        if (M == null || M.length == 0) return 0;
+        UF uf = new UF(M.length);
+        for (int i = 0; i < M.length; i++) {
+            for (int j = i + 1; j < M[0].length; j++) {
+                if (M[i][j] == 1)
+                    uf.union(i, j);
+            }
+        }
+        return uf.getCount();
+    }
 
+### Graph Valid Tree
+题目要求判断给定的无向图是否能构成一棵树，首先要满足的就是图中只能有一个连通分量，再根据树的定义，图中不可以存在环。则由union-find算法可以很好的解决这两个问题。1.判断分量个数count是否为1；2.在构建图的构成中，如果union的两个点已经相连，则说明有环，直接return false。只需要稍微改动union方法即可：
 
+        public boolean union(int p, int q) {
+            int pRoot = find(p);
+            int qRoot = find(q);
+            if (pRoot == qRoot) return false;
+            if (sz[pRoot] > sz[qRoot]) {
+                id[qRoot] = pRoot;
+                sz[pRoot] += sz[qRoot];
+            } else {
+                id[pRoot] = qRoot;
+                sz[qRoot] += sz[pRoot];
+            }
+            count--;
+            return true;
+        }
 
+### Number of Islands II
+这道题需要解决的是2维矩阵上的连通性问题，且每一步都需要返回当前连通器的数量。所以用Union-Find解决问题十分合适！
+虽然是2维矩阵，我们依然可以将其`扁平化`，用int[] id来记录每个位置所处连通分量，id = new int[m\*n]。  
+本题的难点在于并非照搬了UF的模版，尤其count的初始化有所不同，但只要掌握了union-find的思想，就会发现依然是换汤不换药。为帮助理解，我们对以下例子给出对应的连通器变动过程:  
+e.g. m = 3, n = 3, pos = [[0, 0], [0, 1], [1, 2], [2, 1], [1, 1]]
+![](https://github.com/zhaoxy136/LeetCode/blob/master/Summary%20and%20Tricky%20tips/assets/Union%20Find(2).png)
 
-
+    class Solution {
+    int[] id;
+    int[] sz;
+    public List<Integer> numIslands2(int m, int n, int[][] positions) {
+        List<Integer> res = new ArrayList<>();
+        int[] dir = new int[]{0, 1, 0, -1, 0};
+        int count = 0;
+        id = new int[m * n];
+        sz = new int[m * n];
+        //at the beginning, there is no any component, so we fill id with -1.
+        Arrays.fill(id, -1);
+        for (int[] pos : positions) {
+            int index = pos[0] * n + pos[1];
+            //first add the component, initialize id and sz, increase count by 1.
+            id[index] = index;
+            sz[index] = 1;
+            count++;
+            for (int i = 0; i < 4; i++) {
+                int row = pos[0] + dir[i];
+                int col = pos[1] + dir[i+1];
+                int tmp = row * n + col;
+                if (row >= 0 && row < m && col >= 0 && col < n && id[tmp] != -1) {
+                    //since count is not set as global variable, we modified union method
+                    count += union(index, tmp);
+                }
+            }
+            res.add(count);
+        }
+        return res;
+    }
+    public int find(int p) {
+        while (p != id[p]) {
+            id[p] = id[id[p]];
+            p = id[p];
+        }
+        return p;
+    }
+    public int union(int p, int q) {
+        int pRoot = find(p);
+        int qRoot = find(q);
+        if (pRoot == qRoot) return 0;
+        if (sz[pRoot] > sz[qRoot]) {
+            id[qRoot] = pRoot;
+            sz[pRoot] += sz[qRoot];
+        } else {
+            id[pRoot] = qRoot;
+            sz[qRoot] += sz[pRoot];
+        }
+        return -1;
+    }
+    }
 
 
 ## 小结
+ + union-find的题目基本都是无向图，因为它注重的是连通性，而非路径
  + union-find算法不能求具体联通路径，求路径需要用DFS搜索算法
  + quick-find 算法中，int[] id表示的是每个节点所属`分支`，可以理解为根的id;
  + quick-union算法中，int[] id表示的是每个节点的`parent节点`，所以在find()中要一直循环向上找根；
  + weighted UF算法主要引入了size数组，用于将小树向大树合并
- + compressed path十分巧妙，在find的同时优化了结构。
+ + compressed path十分巧妙，在find的同时优化了结构。  
+ + union-find的运用要灵活，主要在于count的变化已经union的处理
 
 ## 其他相关题目
-
+> [Number of Connected Components in an Undirected Graph](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/description/)  
+> [Number of Islands](https://leetcode.com/problems/number-of-islands/description/)
 
