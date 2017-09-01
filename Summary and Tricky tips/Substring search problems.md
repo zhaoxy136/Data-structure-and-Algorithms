@@ -4,7 +4,7 @@
 > [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/description/)  
 > [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/description/)  
 > [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/)  
-   
+> [Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/description/)  
 
 ## 思路分析
 这类题目的共性如题所说，就是给出一个字符串，找出其子满足特定条件的子字符串。对于搜索问题，这类题目的**搜索空间**非常明确就是字符串。  
@@ -14,7 +14,7 @@
 + [10 line template](https://discuss.leetcode.com/topic/30941/here-is-a-10-line-template-that-can-solve-most-substring-problems)  
 + [Sliding Window algorithm template](https://discuss.leetcode.com/topic/68976/sliding-window-algorithm-template-to-solve-all-the-leetcode-substring-search-problem)
 
-两个模版的思路基本一样，都是hashmap + two pointers的模式。
+两个模版的思路基本一样，都是hashmap + two pointers的模式。但都属于sliding window的问题，对于sliding window，最重要的需要handle的就是expand和shrink，这类题则就是利用了hashmap和counter来处理window的变化的！
 
 首先看java书写的常规模版：
 
@@ -162,9 +162,27 @@
         return max;
     }
 
+### Longest Repeating Character Replacement
+这道题理解难度很大，模版只提供了思路，但问题的核心还是在于对sliding window的理解。本题要求允许k次替换后最长单一字符出现的字符串最大长度。与前面几道题不同的是，最终window的size就是要求的结果。我们也只需要考虑window的expand而无需考虑shrink。  
+换句话说，当end向后遍历的过程中，只有两种情况，一种是将window的size加一，一种是将window整体向后移动一位，size不变。而判定这两种情况的标准需要借助maxCount变量。**maxCount的意义是历史上出现在window中的单一字符的最大次数**，当end-start > maxCount + k时，我们需要将window后移一位（移动start，end相当于已经移动过）。直至遍历结束，此时的window size即为最后结果。
+
+      public int characterReplacement(String s, int k) {
+        int[] map = new int[26];
+        int start = 0, end = 0;
+        int res = 0, maxCount = 0;
+        while (end < s.length()) {
+            map[s.charAt(end) - 'A']++;
+            maxCount = Math.max(maxCount, map[s.charAt(end++) - 'A']);
+            if (end-start-maxCount > k) {
+                map[s.charAt(start++) - 'A']--;
+            }
+            res = Math.max(res, end-start);
+        }
+        return res;
+      }
 
 ## 其他相关题目
 > [Longest Substring with At Most Two Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/description/)  
 > [Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/description/)  
 > [Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/description/)  
-> [Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/description/)  
+> 
