@@ -163,7 +163,7 @@
     }
 
 ### Longest Repeating Character Replacement
-这道题理解难度很大，模版只提供了思路，但问题的核心还是在于对sliding window的理解。本题要求允许k次替换后最长单一字符出现的字符串最大长度。与前面几道题不同的是，最终window的size就是要求的结果。我们也只需要考虑window的expand而无需考虑shrink。  
+这道题理解难度很大，模版只提供了思路，但问题的核心还是在于对sliding window的理解。本题要求允许k次替换后最长单一字符出现的字符串最大长度。与前面几道题不同的是，前面的题目关心的是window中字符串是否valid，而本题关心的只是window的size是多少，并不关心其间的字符串是否 valid。最终window的size就是要求的结果。我们也只需要考虑window的expand而无需考虑shrink。  
 换句话说，当end向后遍历的过程中，只有两种情况，一种是将window的size加一，一种是将window整体向后移动一位，size不变。而判定这两种情况的标准需要借助maxCount变量。**maxCount的意义是历史上出现在window中的单一字符的最大次数**，当end-start > maxCount + k时，我们需要将window后移一位（移动start，end相当于已经移动过）。直至遍历结束，此时的window size即为最后结果。
 
       public int characterReplacement(String s, int k) {
