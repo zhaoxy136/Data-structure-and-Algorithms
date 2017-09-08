@@ -39,8 +39,8 @@
 
 ### Merge Intervals
 题目要求将给出的所有intervals合并，并返回一个新的List。既然要合并，那么**必然先要判断是否有重叠**，这与上一题是一样的。不同的是，对待重叠的处理方式，
-不是return false，而是将重叠部分合并，继续向后判断。而没有重叠时则直接将当前interval放入结果List中即可。对于本题，按照start或是end排序也并没有
-什么不同。
+不是return false，而是将重叠部分合并，继续向后判断。而没有重叠时则直接将当前interval放入结果List中即可。  
+在排序时，如果按照end排序，则以下例子会出现错误{[2, 4], [5, 6], [1, 8]}。**故此题需要按照start排序**
 
     public List<Interval> merge(List<Interval> intervals) {
         List<Interval> res = new ArrayList<>();
