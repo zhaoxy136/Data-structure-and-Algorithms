@@ -78,7 +78,7 @@
         for (int l = i+1; l < nums.length; l++) {
             if (Math.abs(nums[l]) <= k) {
                 int index = i + Math.abs(nums[l]);
-                if (nums[index] > 0) nums[index] *= -1;
+                if (index < nums.length && nums[index] > 0) nums[index] *= -1;
             }
         }
         for (int l = i+1; l < nums.length; l++) {
