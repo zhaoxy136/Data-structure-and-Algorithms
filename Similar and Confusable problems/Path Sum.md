@@ -1,8 +1,7 @@
 ## 涉及题目
 > [Path Sum](https://leetcode.com/problems/path-sum/description/)  
 > [Path Sum II]()  
-> [Path Sum III]()  
-> [Path Sum IV]()  
+> [Path Sum III]() 
 
 
 ## 思路分析
@@ -45,9 +44,11 @@
 
 ### Path Sum III
 本题又是对于第二题的延伸，不再要求路径是root to leaf了，而是node to node，只要向下的路径即可。且只需要返回路径的数量。  
-虽然也可以用recursive来解决，但稍微tricky，面试时容易一时想不出具体思路。  
-
-
+虽然也可以用recursive来解决，但稍微tricky，面试时容易一时想不出具体思路。  
+这里首先给出的解法是**前缀和**的思路，我们从上向下遍历，将树节点value的和储存起来，每遍历一个点就像上找是否已有前缀和为preSum-sum的路径。如果存在
+则记录满足条件的路径数量（因为可能有0值存在，所以路径数量可以大于1）。整体思路可以归结为DFS+HashMap。  
+需要注意的两点：一是每一层返回之前要将该层的presum从map中去除，因为题目要求的路径是单向向下的。  
+第二点是在刚开始的时候需要将（0，1）放入map，否则会漏掉从根节点出发的路径数量。
 
     class Solution {
     public int pathSum(TreeNode root, int sum) {
@@ -67,37 +68,21 @@
     }
     }
 
+在此也放出recursive的解法，仔细分析可知，这种解法存在大量重复计算，所以复杂度高于第一种方法
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    class Solution {
+    public int pathSum(TreeNode root, int sum) {
+        if (root == null) return 0;
+        return helper(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
+    }
+    //calculate num of paths start from root
+    public int helper(TreeNode root, int sum) {
+        if (root == null) return 0;
+        sum -= root.val;
+        int count = sum == 0 ? 1 : 0;
+        count += helper(root.left, sum);
+        count += helper(root.right, sum);
+        return count;
+    }
+    }
 
