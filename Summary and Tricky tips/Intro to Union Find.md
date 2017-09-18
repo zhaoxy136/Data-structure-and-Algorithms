@@ -145,7 +145,7 @@
 
 ### Friend Circles
 本题实则为一无向图，点与点之间相连，求出共有几个连通分量。属于典型的union-find问题。按照模型先构建UF类。  
-题目的输入为adjacency matrix，且矩阵是对称的。我们只需要遍历矩阵i从0~n，j从i+1~n（因为，对角线必然联通，另一侧又可由对称处理）
+题目的输入为adjacency matrix，且矩阵是对称的。我们只需要遍历矩阵i从0-n，j从i+1-n（因为，对角线必然联通，另一侧又可由对称处理）
 
     public int findCircleNum(int[][] M) {
         if (M == null || M.length == 0) return 0;
