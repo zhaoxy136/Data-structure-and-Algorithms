@@ -64,4 +64,36 @@ public class Solution {
     }
 }
 
-
+//Version 2:
+//example "1 4 +1", in version 0 and 1,return 6, in version 2 return 15, which I think is more accurate.
+class Solution {
+    public int calculate(String s) {
+        char[] str = s.toCharArray();
+        Stack<Integer> st = new Stack<>();
+        int sign = 1;
+        int res = 0;
+        int num = 0;
+        for (int i = 0; i < str.length; i++) {
+            if (Character.isDigit(str[i])) {
+                num = num * 10 + str[i] - '0';
+            } else if (str[i] != ' ' && !Character.isDigit(str[i])) {
+                if (str[i] == '+' || str[i] == '-') {
+                    res += sign * num;
+                    sign = str[i] == '+' ? 1 : -1;
+                } else if (str[i] == '(') {
+                    st.push(sign);
+                    st.push(res);
+                    res = 0;
+                    sign = 1;
+                } else {
+                    res += sign * num;
+                    res = st.pop() + st.peek() * res;
+                    sign = st.pop();
+                }
+                num = 0;
+            }
+        }
+        res += sign * num;
+        return res;
+    }
+}
