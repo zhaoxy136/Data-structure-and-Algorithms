@@ -55,7 +55,7 @@ Hoare:
 
 指针的遍历方向我们暂不做分析，且视为两个算法的主要区分点，那么pivot的选取有什么区别呢？为什么一个要选last element另一个却选择了first element呢?
 
-假设我们把Lomuto的pivot选为first element，则针对[5,3,1,6,2,4,3]得到的结果为[5,3,1,2,4,3 | 6],返回index 5。
+假设我们把Lomuto的pivot选为first element，则针对[5,3,1,6,2,4,3,5]得到的结果为[5,3,1,2,4,3,5 | 6],返回index 6。
 接着我们依然针对Lomuto将遍历过程中arr[i] <= pivot 换成 arr[i] < pivot,则针对例子[5,3,1,6,2,4,3,5]选择5为pivot得到[3,1,2,4,3 | 6,5,5]。
 通过对比发现，对于pivot算法，无论如何选取pivot的值，数组内pivot等值的元素一定会被分到同一侧。而根据**交换条件**不同，分割两侧可能为严格大于pivot或者
 大于等于pivot。
