@@ -2,6 +2,7 @@
 ### 涉及题目
 > [Implement Trie](https://leetcode.com/problems/implement-trie-prefix-tree/description/)  
 > [Prefix and Suffix Search](https://leetcode.com/problems/prefix-and-suffix-search/description/)  
+> [Design Search Autocomplete System](https://leetcode.com/problems/design-search-autocomplete-system/description/)
 
 
 ### Implement Trie
@@ -201,9 +202,78 @@ class WordFilter {
 }
 ```
 
+### Design Search Autocomplete System
+面试高频题，题目有一些设计的思想在其中，但并没有上一道题那么tricky。
+对于这类问题，最最重要的是要和面试官沟通好题意，然后分析方案的可行性和优缺点。
+最后再准确并熟练的实现出来。
+本题的唯一不同的点在于当搜索到当前prefix的时候，需要对其所有的单词进行排序，如果每次都做dfs那么time complexity就会很大。
+对于我们可以采取空间换时间的策略，对于每个Node都保存一个hashmap<String, Integer>来存储以其为前缀的所有单词出现的次数。
+```
+class TrieNode {
+    Map<String, Integer> map;
+    TrieNode[] children;
+    public TrieNode() {
+        this.map = new HashMap<>();
+        this.children = new TrieNode[27];
+    }
+}
+```
+insert() 和 get()都是基本写法，唯一不同的是，我们在query的时候需要对hashmap中的所有string，count pair进行排序，然后输出前三即可。
+```
+public AutocompleteSystem(String[] sentences, int[] times) {
+        root = new TrieNode();
+        cur = new StringBuilder();
+        k = 3;
+        for (int i = 0; i < sentences.length; i++) {
+            addSentence(sentences[i], times[i]);
+        }
+    }
+    
+    private void addSentence(String sentence, int time) {
+        TrieNode node = root;
+        for (int i = 0; i < sentence.length(); i++) {
+            char c = sentence.charAt(i);
+            int index = c == ' ' ? 26 : c - 'a';
+            if (node.children[index] == null) {
+                node.children[index] = new TrieNode();
+            }
+            node = node.children[index];
+            node.map.put(sentence, node.map.getOrDefault(sentence, 0) + time);
+        }
+    }
+    
+    public List<String> input(char c) {
+        List<String> res = new ArrayList<>();
+        if (c != '#') {
+            cur.append(c);
+            TrieNode node = root;
+            for (int i = 0; i < cur.length(); i++) {
+                char ch = cur.charAt(i);
+                int index = ch == ' ' ? 26 : ch - 'a';
+                if (node.children[index] == null) return res;
+                node = node.children[index];
+            }
+            Map<String, Integer> myMap = node.map;
+            PriorityQueue<String> queue = new PriorityQueue<>((a, b) -> (myMap.get(a) == myMap.get(b) ? a.compareTo(b) : myMap.get(b) - myMap.get(a)));
+            for (String s : myMap.keySet()) {
+                queue.add(s);
+            }
+            int size = k;
+            while (!queue.isEmpty() && size-- > 0) {
+                res.add(queue.poll());
+            }
+        } else {
+            addSentence(cur.toString(), 1);
+            cur = new StringBuilder();
+        }
+        return res;
+    }
+```
 
 ### 小结
 + TrieNode class 的表示方法有很多种，具体使用那一种要根据不同的题目做出分析，但无论何种表示，其内在的思想都是一样的
 + Trie树占用内存较大，例如：处理最大长度为20、全部为小写字母的一组字符串，则可能需要20^26个节点来保存数据。而这样的树实际上稀疏的十分厉害，可以采用需要多少子节点则添加多少子节点来解决（不要类似以上的示例，每个节点初始化时就申请一个长度为26的数组）。所以Trie相对适合用于**单词个数巨大，但平均单词长度很小的情况**。
++ 有一点要注意的是，如果使用HashMap来代替array的话，那么每一层需要遍历的时候就不会是按照字典序输出了。
+
 
 ### 其他相关题目
