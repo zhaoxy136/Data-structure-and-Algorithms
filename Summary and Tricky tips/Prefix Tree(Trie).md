@@ -1,7 +1,7 @@
 ## 如何运用字典树／前缀树
 ### 涉及题目
-> [Implement Trie](https://leetcode.com/problems/implement-trie-prefix-tree/description/)
-> [Prefix and Suffix Search](https://leetcode.com/problems/prefix-and-suffix-search/description/)
+> [Implement Trie](https://leetcode.com/problems/implement-trie-prefix-tree/description/)  
+> [Prefix and Suffix Search](https://leetcode.com/problems/prefix-and-suffix-search/description/)  
 
 
 ### Implement Trie
@@ -87,7 +87,7 @@ class TrieNode {
 ```
 ### Prefix and Suffix Search
 此题是一个Trie的延伸，主要考察如何灵活的构建Trie，虽然Trie只能对前缀进行搜索，但只要我们根据题目的需要合理地构建，也可以达到同时搜索prefix和suffix的效果。
-####思路一：拿到题一般会先想到的方法是构建两个Trie，一个用于前缀，一个用于后缀。问题的关键是如何保证搜索到的prefix和suffix来自同一个单词。这就要求TrieNode保存所有单词的index，即weight。
+#### 思路一：拿到题一般会先想到的方法是构建两个Trie，一个用于前缀，一个用于后缀。问题的关键是如何保证搜索到的prefix和suffix来自同一个单词。这就要求TrieNode保存所有单词的index，即weight。
 ```
 class WordFilter {
     TrieNode trie1, trie2;
@@ -152,7 +152,7 @@ class TrieNode {
 }
 ```
 
-####思路二：那么能否只用一个Trie就达到同样的效果呢？我们可以在对单词进行储存时进行如下变形：即当需要存入apple时，我们分别存入#apple, e#apple, le#apple, ple#apple, pple#apple, apple#apple。即后缀#前缀的格式。
+#### 思路二：那么能否只用一个Trie就达到同样的效果呢？我们可以在对单词进行储存时进行如下变形：即当需要存入apple时，我们分别存入#apple, e#apple, le#apple, ple#apple, pple#apple, apple#apple。即后缀#前缀的格式。
 如此以来，当进行query prefix: ap, suffix: le时，我们只需在Trie中搜索le#ap即可。而且一个TrieNode只需保存最大的weight，因为前缀和后缀是对应储存的。
 另外一点不同的是，我们引入了#，那么Trie中包含的字符就不只是a-z了。我们同时也可以用到一个小优化，即用HashMap<Character, TrieNode> 来替代TrieNode array。某种程度上可以起到节省空间的作用。
 ```
