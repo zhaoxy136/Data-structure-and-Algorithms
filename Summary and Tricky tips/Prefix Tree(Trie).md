@@ -4,6 +4,17 @@
 > [Prefix and Suffix Search](https://leetcode.com/problems/prefix-and-suffix-search/description/)  
 > [Design Search Autocomplete System](https://leetcode.com/problems/design-search-autocomplete-system/description/)
 
+### Clarification
+面试中沟通十分重要，不要拿到题就埋头开始做，一定要先和面试官确定题意，并且做一些clarification，甚至Assumption。
+对于Trie的问题，通常需要确认的有以下几点：
++ what is the scale of the dictionary? What is the average lengh of the words?
++ how many possible characters are included, [a-z]? or with some other characters?
++ duplicate words are possible, how would that influence the system?
++ how frequently does the system insert, and how frequent does it read/query?
+第一点十分重要，他甚至直接决定了Trie是否是一个很好的符合题意的设计
+第二点也是必问的，这才才知道TrieNode有多少个子分支
+第四点是对于如何具体实现十分重要的点，这样我们才能决定我们要更加注重那一种操作的复杂度
+
 
 ### Implement Trie
 理解Trie入门第一题，帮助我们熟悉Trie的基本操作，在官方解答部分也列举出来Trie在实际中应用的例子。
@@ -277,3 +288,5 @@ public AutocompleteSystem(String[] sentences, int[] times) {
 
 
 ### 其他相关题目
+> [Implement Magic Dictionary](https://leetcode.com/problems/implement-magic-dictionary/description/)  
+> 
